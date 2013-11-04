@@ -16,7 +16,8 @@ byte mac[] = {
 // fill in an available IP address on your network here,
 // for manual configuration:
 IPAddress ip(192,168,1,111);
-IPAddress server(192,168,1,100);
+//IPAddress server(192,168,1,100);
+char server[] = "temp-monitor.herokuapp.com";
 
 // initialize the library instance:
 WiFiClient client;
@@ -103,13 +104,13 @@ void httpRequest() {
    
    delay(500);   
   // if there's a successful connection:
-  if (client.connect(server, 8888)) {
+  if (client.connect(server, 80)) {
     Serial.println("connecting...");
     // send the HTTP PUT request:
     client.print("GET /");
     client.print("save/AB/");client.print(temperatureF); 
     client.println(" HTTP/1.1");
-    client.println("Host: 192.168.1.100:8888");
+    client.println("Host: temp-monitor.herokuapp.com");
     client.println("User-Agent: arduino-ethernet");
     client.println("Connection: close");
     client.println();
