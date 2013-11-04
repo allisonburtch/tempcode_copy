@@ -15,10 +15,6 @@ app.get('/save/:id', function(req, res) {
 });
 app.get('/save/:id/:temp', function(req, res) {
     res.send({user:(req.params.id).toUpperCase(), temp: req.params.temp});
-    var tempUser = req.params.id'
-    callWeather API();;
-    compare
-    
     console.log({user:(req.params.id).toUpperCase(), temp: req.params.temp});
 });
  
