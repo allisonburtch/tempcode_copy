@@ -1,11 +1,11 @@
 {
     "name": "temperature-monitor",
     "description": "Remote Temperature Monitor",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "private": true,
     "dependencies": {
         "express": "3.x",
-        "forecast": "0.1.0"
+        "forecast.io": "0.0.4"
     },
 	"engines": {
 	    "node": "0.10.20"
