@@ -4,7 +4,7 @@ var app = express();
  
 app.get('/', function(req, res) {
     res.writeHead(200, {'Content-Type': 'text/plain'});
-	res.end('Hello World\n');
+	res.end('Temperature Monitor App\n');
 });
 
 app.get('/save', function(req, res) {
@@ -15,8 +15,12 @@ app.get('/save/:id', function(req, res) {
 });
 app.get('/save/:id/:temp', function(req, res) {
     res.send({user:(req.params.id).toUpperCase(), temp: req.params.temp});
+    var tempUser = req.params.id'
+    callWeather API();;
+    compare
+    
     console.log({user:(req.params.id).toUpperCase(), temp: req.params.temp});
 });
  
-app.listen(8888);
-console.log('Listening on port 8888...');
+app.listen(80);
+console.log('Listening on port 80...');
