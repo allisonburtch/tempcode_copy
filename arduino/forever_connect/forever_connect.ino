@@ -18,11 +18,15 @@
 // The MAC address from YOUR ethernet controller.
 byte macSergio[] = {0x90, 0xA2, 0xDA, 0x00, 0x6C, 0xFE};
 byte macDonna[] = {0x90, 0xA2, 0xDA, 0x00, 0x86, 0x36};
+byte macAllison[] = {0x7A, 0xC4, 0xE, 0x92, 0xEB, 0x2};
+
 
 
 // fill in an available IP address on your network here, for manual configuration:
 IPAddress ipDonna(192,168,1,104); // Donna
 IPAddress ipSergio(192,168,1,102);  //Sergio
+IPAddress ipAllison(192,168,1,111);  //Allison
+
 
 IPAddress server(192,168,1,100);
 
