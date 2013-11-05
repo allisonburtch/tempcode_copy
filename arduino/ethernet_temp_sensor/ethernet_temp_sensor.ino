@@ -10,25 +10,30 @@
  Using TMP36 Analog temperature sensor
  http://www.adafruit.com/products/165
  Connected to Analog pin 0, +5v and Ground
+ 
+ Get the server code at https://github.com/sergiomajluf/Temp-Monitor
+ 
  */
 
 #include <SPI.h>
 #include <Ethernet.h>
 
 // The MAC address from YOUR ethernet controller.
-byte macSergio[] = {0x90, 0xA2, 0xDA, 0x00, 0x6C, 0xFE};
+byte mac[] = {0x90, 0xA2, 0xDA, 0x00, 0x6C, 0xFE};
+byte macSergio[] = {0x90, 0xA2, 0xDA, 0x00, 0x6C, 0xE4};
 byte macDonna[] = {0x90, 0xA2, 0xDA, 0x00, 0x86, 0x36};
 byte macAllison[] = {0x7A, 0xC4, 0xE, 0x92, 0xEB, 0x2};
 
 
 
 // fill in an available IP address on your network here, for manual configuration:
-IPAddress ipDonna(192,168,1,104); // Donna
-IPAddress ipSergio(192,168,1,102);  //Sergio
-IPAddress ipAllison(192,168,1,111);  //Allison
+//IPAddress ipDonna(192,168,1,104); // Donna
+//IPAddress ipSergio(192,168,0,5);  //Sergio
+//IPAddress ipAllison(192,168,1,111);  //Allison
 
 
-IPAddress server(192,168,1,100);
+//IPAddress server(192,168,1,100);
+char server[] = "temp-monitor.herokuapp.com";
 
 // initialize the library instance:
 EthernetClient client;
@@ -38,14 +43,14 @@ int sensorPin = 0;
 unsigned long lastConnectionTime = 0;          // last time you connected to the server, in milliseconds
 boolean lastConnected = false;                 // state of the connection last time through the main loop
 
-const unsigned long postingInterval = 20000;    // delay between updates, in milliseconds
+const unsigned long postingInterval = 600000;    // 10 minutes delay between updates, in milliseconds
 
 void setup() {
 
   Serial.begin(9600);
   delay(1000);
 
-  Ethernet.begin(macSergio, ipSergio);
+  Ethernet.begin(macSergio);
  // Ethernet.begin(mac);
 
   // print the Ethernet board/shield's IP address:
@@ -103,14 +108,14 @@ void httpRequest() {
 
   delay(500);   
   // if there's a successful connection:
-  if (client.connect(server, 8888)) {
+  if (client.connect("temp-monitor.herokuapp.com",80)) {
     Serial.println("connecting...");
     // send the HTTP PUT request:
     client.print("GET /");
-    client.print("save/DM/");
+    client.print("save/SM/");
     client.print(temperatureF); 
     client.println(" HTTP/1.1");
-    client.println("Host: 192.168.1.100:8888");
+    client.println("Host: temp-monitor.herokuapp.com");
     client.println("User-Agent: arduino-ethernet");
     client.println("Connection: close");
     client.println();

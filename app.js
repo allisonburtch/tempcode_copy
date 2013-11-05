@@ -2,6 +2,8 @@
 var express = require('express');
 var app = express();
 var net = require('net');
+var io = require('socket.io').listen(app);
+
 
 // Set up Forecast.io
 var Forecast = require('forecast.io');
@@ -18,16 +20,28 @@ var options = {
 	forecast = new Forecast(options);
 
 
+var port = process.env.PORT || 5000;
+app.listen(port, function() {
+	console.log("Listening on " + port);
+});
+
+
 // Run Server 
-app.get('/', function(req, res) {
-	res.writeHead(200, {
-		'Content-Type': 'text/plain'
-	});
-	res.end('Temperature Monitor App');
+// app.get('/', function(req, res) {
+// 	res.writeHead(200, {
+// 		'Content-Type': 'text/plain'
+// 	});
+// 	res.end('Temperature Monitor App');
+// });
+
+app.get('/', function(request, response){
+  response.sendfile(__dirname + "/index.html");
 });
-app.get('/save', function(req, res) {
-	res.send("Incomplete request. Missing the User & Temp");
-});
+
+// app.get('/save', function(req, res) {
+// 	res.send("Incomplete request. Missing the User & Temp");
+// });
+
 app.get('/save/:id', function(req, res) {
 	res.send("Incomplete request. Missing Temp");
 });
@@ -79,10 +93,23 @@ app.get('/save/:id/:temp', function(req, res) {
 	
 });
 
-var port = process.env.PORT || 5000;
-app.listen(port, function() {
-	console.log("Listening on " + port);
-});
+
+var activeClients = 0;
+ 
+io.sockets.on('connection', function(socket){clientConnect(socket)});
+ 
+function clientConnect(socket){
+  activeClients +=1;
+  io.sockets.emit('message', {clients:activeClients});
+  socket.on('disconnect', function(){clientDisconnect()});
+}
+ 
+function clientDisconnect(){
+  activeClients -=1;
+  io.sockets.emit('message', {clients:activeClients});
+}
+
+// Weather API
 
 function getWeatherApi(userID, callback) {
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Connection Counter</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="node_modules/socket.io/lib/socket.io.js"></script>
+    <script>
+      function msgReceived(msg){
+        $clientCounter.html(msg.clients);
+      }
+ 
+      $(document).ready(function () {
+        $clientCounter = $("#client_count")
+ 
+        var socket = io.connect('http://localhost:4000');
+        socket.on('message', function(msg){msgReceived(msg)});
+      });
+    </script>
+  </head>
+  <body>
+    <p><span id="client_count">0</span> connected clients</p>
+</body>
+</html>
