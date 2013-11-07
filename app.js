@@ -2,8 +2,6 @@
 var express = require('express');
 var app = express();
 var net = require('net');
-var io = require('socket.io').listen(app);
-
 
 // Set up Forecast.io
 var Forecast = require('forecast.io');
@@ -93,21 +91,10 @@ app.get('/save/:id/:temp', function(req, res) {
 	
 });
 
+app.get('/view/:id', function(req, res) {
+	console.log(req.params.id + "'s house is ");
+});
 
-var activeClients = 0;
- 
-io.sockets.on('connection', function(socket){clientConnect(socket)});
- 
-function clientConnect(socket){
-  activeClients +=1;
-  io.sockets.emit('message', {clients:activeClients});
-  socket.on('disconnect', function(){clientDisconnect()});
-}
- 
-function clientDisconnect(){
-  activeClients -=1;
-  io.sockets.emit('message', {clients:activeClients});
-}
 
 // Weather API
 
