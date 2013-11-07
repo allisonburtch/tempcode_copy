@@ -2,6 +2,7 @@
 var express = require('express');
 var app = express();
 var net = require('net');
+var mongoose = require ("mongoose");
 
 // Set up Forecast.io
 var Forecast = require('forecast.io');
@@ -49,19 +50,19 @@ app.get('/save/:id/:temp', function(req, res) {
 		console.log(currentTime);
 
 		if (currentTime > 6 && currentTime < 22 && forecastTemp < 55 && currentTemp > 68) {
-			console.log("your house is sufficiently heated");
+			console.log("daytime: your house is sufficiently heated");
 		}
 
 		else if (currentTime > 6 && currentTime < 22 && forecastTemp < 55 && currentTemp < 68) {
-			console.log("your house is cold");
+			console.log("daytime: your house is cold");
 		}
 
 		else if (currentTime > 22 && currentTime < 6 && forecastTemp < 40 && currentTemp > 55) {
-			console.log("your house is sufficiently heated");
+			console.log("nightime: your house is sufficiently heated");
 		}
 
 		else if (currentTime > 22 && currentTime < 6 && forecastTemp < 40 && currentTemp < 55) {
-			console.log("your house is cold");
+			console.log("nightime: your house is cold");
 		}
 
 
