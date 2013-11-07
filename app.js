@@ -3,6 +3,17 @@ var express = require('express');
 var app = express();
 var net = require('net');
 
+
+//mongoose stuff::
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://temp-monitor.herokuapp.com');
+	var db = mongoose.connection;
+	db.on('error', console.error.bind(console, 'connection error:'));
+	db.once('open', function callback () {
+	  // yay!
+	});
+	
+
 // Set up Forecast.io
 var Forecast = require('forecast.io');
 var util = require('util')
@@ -22,7 +33,6 @@ var port = process.env.PORT || 5000;
 app.listen(port, function() {
 	console.log("Listening on " + port);
 });
-
 
 // Run Server 
 // app.get('/', function(req, res) {
@@ -91,7 +101,7 @@ app.get('/save/:id/:temp', function(req, res) {
 	
 });
 
-app.get('/view/:id', function(req, res) {
+app.get('/	:id', function(req, res) {
 	console.log(req.params.id + "'s house is ");
 });
 
