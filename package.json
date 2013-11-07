@@ -5,7 +5,8 @@
     "private": true,
     "dependencies": {
         "express": "3.x",
-        "forecast.io": "0.0.4"
+        "forecast.io": "0.0.4",
+        "mongoose": "3.8.0"
     },
 	"engines": {
 	    "node": "0.10.20"
