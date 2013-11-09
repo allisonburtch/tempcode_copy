@@ -1,23 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Connection Counter</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="node_modules/socket.io/lib/socket.io.js"></script>
-    <script>
-      function msgReceived(msg){
-        $clientCounter.html(msg.clients);
-      }
- 
-      $(document).ready(function () {
-        $clientCounter = $("#client_count")
- 
-        var socket = io.connect('http://localhost:4000');
-        socket.on('message', function(msg){msgReceived(msg)});
-      });
-    </script>
+    <title>Temperature Monitor</title>
   </head>
   <body>
-    <p><span id="client_count">0</span> connected clients</p>
-</body>
+    <h1>Temperature Monitor</h1>
+    <p>Monitor your house indoor temperature using Arduino, and NodeJS as a server, and compare it with actual outside temperature at your specific location, using forecast.io</p>
+
+<h2>This project includes:</h2>
+<ul>
+<li>Arduino sketches - setup instructions on wiki page</li>
+<li>Node server app</li>
+</ul>
+
+<h2>Project for ITP class Undertanding Networks</h2>
+
+  </body>
 </html>
