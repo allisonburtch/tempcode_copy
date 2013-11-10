@@ -2,18 +2,33 @@
 var express = require('express');
 var app = express();
 var net = require('net');
+var http = require ('http');  
 var mongoose = require ("mongoose");
 
+var uristring =
+process.env.MONGOLAB_URI ||
+process.env.MONGOHQ_URL ||
+'mongodb://localhost/Temp-Monitor';
 
-//mongoose stuff::
-var mongoose = require('mongoose');
+var theport = process.env.PORT || 5000;
+
 mongoose.connect('mongodb://temp-monitor.herokuapp.com');
 	var db = mongoose.connection;
 	db.on('error', console.error.bind(console, 'connection error:'));
 	db.once('open', function callback () {
 	  // yay!
 	});
-	
+
+// Makes connection asynchronously.  Mongoose will queue up database
+// operations and release them when the connection is complete.
+mongoose.connect(uristring, function (err, res) {
+  if (err) {
+  console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+  } else {
+  console.log ('Succeeded connected to: ' + uristring);
+  }
+});
+
 
 // Set up Forecast.io
 var Forecast = require('forecast.io');
