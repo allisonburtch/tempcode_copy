@@ -1,0 +1,348 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta name="author" content="ThemeFuse">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Temperature Monitor | Home Page</title>
+
+<!-- main JS libs -->
+<script src="js/libs/modernizr.min.js"></script>
+<script src="js/libs/jquery-1.10.0.js"></script>
+<script src="js/libs/jquery-ui.min.js"></script>
+<script src="js/libs/bootstrap.min.js"></script>
+
+<!-- Style CSS -->
+<link href="css/bootstrap.css" media="screen" rel="stylesheet">
+<link href="style.css" media="screen" rel="stylesheet">
+
+<!-- scripts -->
+<script src="js/general.js"></script>
+
+<script type="text/javascript" src="js/jquery.flot.js"></script>
+<script type="text/javascript" src="js/jquery.flot.resize.js"></script>
+<script type="text/javascript" src="js/jquery.flot.categories.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var graphwidth = $('.widget_graph .inner').width();
+        $('.widget_graph .graph').css('height', parseInt(graphwidth/1.7));
+        $(window).resize(function() {
+            graphwidth = $('.widget_graph .inner').width();
+            $('.widget_graph .graph').css('height', parseInt(graphwidth/1.7));
+        });
+
+        var dA_inside  = [["Mon", 23], ["Tue", 21], ["Wed", 24], ["Thu", 20], ["Fri", 21], ["Sat", 22], ["Sun", 19] ];
+        var dA_outside = [["Mon", 15], ["Tue",  7], ["Wed", 17], ["Thu", 14], ["Fri", 16], ["Sat",  9], ["Sun",  9] ];
+        var dD_inside  = [["Mon", 25], ["Tue", 26], ["Wed", 28], ["Thu", 22], ["Fri", 23], ["Sat", 24], ["Sun", 22] ];
+        var dD_outside = [["Mon", 15], ["Tue",  7], ["Wed", 17], ["Thu", 14], ["Fri", 16], ["Sat",  9], ["Sun",  9] ];
+        var dS_inside  = [["Mon", 24], ["Tue", 26], ["Wed", 27], ["Thu", 23], ["Fri", 24], ["Sat", 25], ["Sun", 24] ];
+        var dS_outside = [["Mon", 15], ["Tue",  7], ["Wed", 17], ["Thu", 14], ["Fri", 16], ["Sat",  9], ["Sun",  9] ];
+        
+        var graphholderAllison = $("#graphAllison");
+        var graphholderDonna = $("#graphDonna");
+        var graphholderSergio = $("#graphSergio");
+       
+        var plotA = $.plot(graphholderAllison, [dA_inside, dA_outside], {
+         	colors: ["#437777"],
+            xaxis: {
+            	mode: "categories",
+            	font: {
+				    size: 11,
+				    lineHeight: 20,
+				    color: "#545454"
+				}
+            },
+            yaxis: {
+                font: {
+				    size: 11,
+				    lineHeight: 20,
+				    color: "#545454"
+				}
+            },
+            series: {
+                lines: {
+                    show: true,
+                    lineWidth: 2,
+                    fill: true,
+                    fillColor: "rgba(69,144,161,0.1)"
+                },
+                points: {
+                    show: true,
+                    radius: 4,
+                    lineWidth: 2,
+                    fillColor: "rgba(255,255,255,0.68)"
+                }
+            },
+            grid: {
+                hoverable: true,
+                clickable: true,
+                margin: 5,
+                color: "#79889a",
+                borderColor: "#79889a",
+                margin: {
+	         	   top: 20,
+			 	   left: 5,
+			 	   bottom: 10,
+			 	   right: 20
+			 	   }
+            }
+        });
+        
+        var plotD = $.plot(graphholderDonna, [dD_inside, dD_outside], {
+         	colors: ["#437777"],
+            xaxis: {
+            	mode: "categories",
+            	font: {
+				    size: 11,
+				    lineHeight: 20,
+				    color: "#545454"
+				}
+            },
+            yaxis: {
+                font: {
+				    size: 11,
+				    lineHeight: 20,
+				    color: "#545454"
+				}
+            },
+            series: {
+                lines: {
+                    show: true,
+                    lineWidth: 2,
+                    fill: true,
+                    fillColor: "rgba(69,144,161,0.1)"
+                },
+                points: {
+                    show: true,
+                    radius: 4,
+                    lineWidth: 2,
+                    fillColor: "rgba(255,255,255,0.68)"
+                }
+            },
+            grid: {
+                hoverable: true,
+                clickable: true,
+                margin: 5,
+                color: "#79889a",
+                borderColor: "#79889a",
+                margin: {
+	         	   top: 20,
+			 	   left: 5,
+			 	   bottom: 10,
+			 	   right: 20
+			 	   }
+            }
+        });
+        
+        var plotS = $.plot(graphholderSergio, [dS_inside, dS_outside], {
+         	colors: ["#437777"],
+            xaxis: {
+            	mode: "categories",
+            	font: {
+				    size: 11,
+				    lineHeight: 20,
+				    color: "#545454"
+				}
+            },
+            yaxis: {
+                font: {
+				    size: 11,
+				    lineHeight: 20,
+				    color: "#545454"
+				}
+            },
+            series: {
+                lines: {
+                    show: true,
+                    lineWidth: 2,
+                    fill: true,
+                    fillColor: "rgba(69,144,161,0.1)"
+                },
+                points: {
+                    show: true,
+                    radius: 4,
+                    lineWidth: 2,
+                    fillColor: "rgba(255,255,255,0.68)"
+                }
+            },
+            grid: {
+                hoverable: true,
+                clickable: true,
+                margin: 5,
+                color: "#79889a",
+                borderColor: "#79889a",
+                margin: {
+	         	   top: 20,
+			 	   left: 5,
+			 	   bottom: 10,
+			 	   right: 20
+			 	   }
+            }
+        });
+              
+    });
+</script>
+
+<!--[if lt IE 9]><script src="js/respond.min.js"></script><![endif]-->
+<!--[if gte IE 9]>
+<style type="text/css">
+    .gradient {filter: none !important;}
+</style>
+<![endif]-->
+</head>
+
+<body>
+<div class="body_wrap">
+    <div class="container">
+
+        <!-- content -->
+        <div class="content " role="main">
+            <!-- Menu row -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Website Menu -->
+                    <div id="topmenu">
+                        <ul class="dropdown clearfix boxed boxed-blue">
+                            <li class="link-more"><a href="#"><i></i></a></li>
+                            <li class="menu-level-0"><a href="#"><span>Home</span></a></li>
+                            <li class="menu-level-0"><a href="#"><span>Users</span></a>
+                                <ul class="submenu-1">
+                                    <li class="menu-level-1"><a href="#">Allison</a></li>
+                                    <li class="menu-level-1"><a href="#">Donna</a></li>
+                                    <li class="menu-level-1"><a href="#">Sergio</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-level-0"><a href="#"><span>About</span></a>
+                                <ul class="submenu-1">
+                                    <li class="menu-level-1"><a href="#">Contact</a></li>
+                                    <li class="menu-level-1"><a href="#">Code</a></li>
+                                </ul>
+							</li>
+                        </ul>
+                    </div>
+                    <!--/ Website Menu -->
+                </div>
+            </div>
+            <!--/ Menu row -->
+
+            <!-- Weather row -->
+            <div class="row">
+                <div class="col-sm-4">
+                    <!-- Allison Widget Weather -->
+                    <div class="widget-container widget-weather boxed boxed-turquoise">
+                        <div class="weather-location clearfix">
+                            <strong>Allison</strong> Burtch
+                        </div>
+                        <div class="weather-highlighted">
+                            <div class="weather-item clearfix su"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>31&deg;</strong><span>Mostly Sunny</span><span>31&deg;/18&deg;</span></div></div>
+                            <div class="weather-item clearfix mo"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>20&deg;</strong><span>Rain</span><span>20&deg;/11&deg;</span></div></div>
+                            <div class="weather-item clearfix tu active"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>27&deg;</strong><span>Partly Cloudy</span><span>27&deg;/15&deg;</span></div></div>
+                            <div class="weather-item clearfix we"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>23&deg;</strong><span>Cloudy</span><span>23&deg;/14&deg;</span></div></div>
+                            <div class="weather-item clearfix th"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>26&deg;</strong><span>Mostly Sunny</span><span>26&deg;/16&deg;</span></div></div>
+                            <div class="weather-item clearfix fr"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>32&deg;</strong><span>Sunny</span><span>32&deg;/19&deg;</span></div></div>
+                            <div class="weather-item clearfix sa"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>24&deg;</strong><span>Light Rain</span><span>24&deg;/12&deg;</span></div></div>
+                        </div>
+                        <ul class="weather-forecast clearfix">
+                            <li><a href="javascript:;" id="mo"><strong>mo</strong><span><i class="icon-weather icon-weather-2"></i></span><span>20&deg;</span></a></li>
+                            <li><a href="javascript:;" id="tu" class="active"><strong>tu</strong><span><i class="icon-weather icon-weather-3"></i></span><span>27&deg;</span></a></li>
+                            <li><a href="javascript:;" id="we"><strong>we</strong><span><i class="icon-weather icon-weather-4"></i></span><span>23&deg;</span></a></li>
+                            <li><a href="javascript:;" id="th"><strong>th</strong><span><i class="icon-weather icon-weather-1"></i></span><span>26&deg;</span></a></li>
+                            <li><a href="javascript:;" id="fr"><strong>fr</strong><span><i class="icon-weather icon-weather-1"></i></span><span>32&deg;</span></a></li>
+                            <li><a href="javascript:;" id="sa"><strong>sa</strong><span><i class="icon-weather icon-weather-5"></i></span><span>24&deg;</span></a></li>
+                            <li><a href="javascript:;" id="su"><strong>su</strong><span><i class="icon-weather icon-weather-1"></i></span><span>31&deg;</span></a></li>
+                        </ul>
+						<!-- Simple Graph -->
+						<div class="widget-container widget_graph">
+						    <div class="inner">
+						        <div id="graphAllison" class="graph"></div>
+						    </div>
+						</div>
+						<!--/ Simple Graph -->
+                    </div>
+                    <!--/ Allison Widget Weather -->                    
+                </div>
+
+                <div class="col-sm-4">
+                    <!-- Donna Widget Weather -->
+                    <div class="widget-container widget-weather boxed boxed-turquoise">
+                        <div class="weather-location clearfix">
+                            <strong>Donna</strong> Miller
+                        </div>
+                        <div class="weather-highlighted">
+                            <div class="weather-item clearfix su"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>31&deg;</strong><span>Mostly Sunny</span><span>31&deg;/18&deg;</span></div></div>
+                            <div class="weather-item clearfix mo"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>20&deg;</strong><span>Rain</span><span>20&deg;/11&deg;</span></div></div>
+                            <div class="weather-item clearfix tu active"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>27&deg;</strong><span>Partly Cloudy</span><span>27&deg;/15&deg;</span></div></div>
+                            <div class="weather-item clearfix we"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>23&deg;</strong><span>Cloudy</span><span>23&deg;/14&deg;</span></div></div>
+                            <div class="weather-item clearfix th"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>26&deg;</strong><span>Mostly Sunny</span><span>26&deg;/16&deg;</span></div></div>
+                            <div class="weather-item clearfix fr"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>32&deg;</strong><span>Sunny</span><span>32&deg;/19&deg;</span></div></div>
+                            <div class="weather-item clearfix sa"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>24&deg;</strong><span>Light Rain</span><span>24&deg;/12&deg;</span></div></div>
+                        </div>
+                        <ul class="weather-forecast clearfix">
+                            <li><a href="javascript:;" id="su"><strong>su</strong><span><i class="icon-weather icon-weather-1"></i></span><span>31&deg;</span></a></li>
+                            <li><a href="javascript:;" id="mo"><strong>mo</strong><span><i class="icon-weather icon-weather-2"></i></span><span>20&deg;</span></a></li>
+                            <li><a href="javascript:;" id="tu" class="active"><strong>tu</strong><span><i class="icon-weather icon-weather-3"></i></span><span>27&deg;</span></a></li>
+                            <li><a href="javascript:;" id="we"><strong>we</strong><span><i class="icon-weather icon-weather-4"></i></span><span>23&deg;</span></a></li>
+                            <li><a href="javascript:;" id="th"><strong>th</strong><span><i class="icon-weather icon-weather-1"></i></span><span>26&deg;</span></a></li>
+                            <li><a href="javascript:;" id="fr"><strong>fr</strong><span><i class="icon-weather icon-weather-1"></i></span><span>32&deg;</span></a></li>
+                            <li><a href="javascript:;" id="sa"><strong>sa</strong><span><i class="icon-weather icon-weather-5"></i></span><span>24&deg;</span></a></li>
+                        </ul>
+						<!-- Simple Graph -->
+						<div class="widget-container widget_graph">
+						    <div class="inner">
+						        <div id="graphDonna" class="graph"></div>
+						    </div>
+						</div>
+						<!--/ Simple Graph -->
+                    </div>
+                    <!--/ Donna Widget Weather -->
+                </div>
+
+                <div class="col-sm-4">
+                    <!-- Sergio Widget Weather -->
+                    <div class="widget-container widget-weather boxed boxed-turquoise">
+                        <div class="weather-location clearfix">
+                            <strong>Sergio</strong> Majluf
+                        </div>
+                        <div class="weather-highlighted">
+                            <div class="weather-item clearfix su"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>31&deg;</strong><span>Mostly Sunny</span><span>31&deg;/18&deg;</span></div></div>
+                            <div class="weather-item clearfix mo"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>20&deg;</strong><span>Rain</span><span>20&deg;/11&deg;</span></div></div>
+                            <div class="weather-item clearfix tu active"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>27&deg;</strong><span>Partly Cloudy</span><span>27&deg;/15&deg;</span></div></div>
+                            <div class="weather-item clearfix we"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>23&deg;</strong><span>Cloudy</span><span>23&deg;/14&deg;</span></div></div>
+                            <div class="weather-item clearfix th"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>26&deg;</strong><span>Mostly Sunny</span><span>26&deg;/16&deg;</span></div></div>
+                            <div class="weather-item clearfix fr"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>32&deg;</strong><span>Sunny</span><span>32&deg;/19&deg;</span></div></div>
+                            <div class="weather-item clearfix sa"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>24&deg;</strong><span>Light Rain</span><span>24&deg;/12&deg;</span></div></div>
+                        </div>
+                        <ul class="weather-forecast clearfix">
+                            <li><a href="javascript:;" id="su"><strong>su</strong><span><i class="icon-weather icon-weather-1"></i></span><span>31&deg;</span></a></li>
+                            <li><a href="javascript:;" id="mo"><strong>mo</strong><span><i class="icon-weather icon-weather-2"></i></span><span>20&deg;</span></a></li>
+                            <li><a href="javascript:;" id="tu" class="active"><strong>tu</strong><span><i class="icon-weather icon-weather-3"></i></span><span>27&deg;</span></a></li>
+                            <li><a href="javascript:;" id="we"><strong>we</strong><span><i class="icon-weather icon-weather-4"></i></span><span>23&deg;</span></a></li>
+                            <li><a href="javascript:;" id="th"><strong>th</strong><span><i class="icon-weather icon-weather-1"></i></span><span>26&deg;</span></a></li>
+                            <li><a href="javascript:;" id="fr"><strong>fr</strong><span><i class="icon-weather icon-weather-1"></i></span><span>32&deg;</span></a></li>
+                            <li><a href="javascript:;" id="sa"><strong>sa</strong><span><i class="icon-weather icon-weather-5"></i></span><span>24&deg;</span></a></li>
+                        </ul>
+						<!-- Simple Graph -->
+						<div class="widget-container widget_graph">
+						    <div class="inner">
+						        <div id="graphSergio" class="graph"></div>
+						    </div>
+						</div>
+						<!--/ Simple Graph -->
+                    </div>
+                    <!--/ Sergio Widget Weather -->                    
+                </div>
+            </div>
+            <!--/ Weather row -->
+        </div>
+        <!--/ content -->
+    </div>
+    <!--/ container -->
+</div>
+</body>
+</html>
