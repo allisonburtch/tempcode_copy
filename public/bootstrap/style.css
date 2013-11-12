@@ -1534,6 +1534,41 @@ a.dropdown-toggle:after{
 /* Widget Weather */
 /*-----------------------------------*/
 
+/* Inner / Outer Temp */
+.weather-innerOuter{
+}
+.itemAllison{
+	list-style: none;
+	display: none;
+}
+.itemAllison.active{
+	display: block;
+}
+
+div.insideTemp {
+	display: block;
+	width: 100%;
+	height: 140px;
+	text-align: center;
+	padding-top: 20px;	
+	background: #65caca url(images/icons/house.png) no-repeat center center;
+	font-size: 30px;
+    font-weight: 60000;
+    color: #3a8081;
+    line-height: 4em;
+    position: relative;
+    float: left;
+    text-indent: 7px;
+}
+
+div.outsideTemp {
+    color: #fff;
+    position: absolute;
+    top: -15px;
+    left: 175px;
+    font-size: 20px;
+}
+
 /* Highlighted */
 .weather-highlighted{padding: 21px 27px 22px;}
 
@@ -1544,6 +1579,7 @@ a.dropdown-toggle:after{
     background: url(images/icons/weather-main.png) no-repeat;
     margin-top: 10px;
 }
+
 .weather-highlighted .inner{
     float: right;
     width: 75px;

@@ -59,11 +59,24 @@ jQuery(document).ready(function() {
 
 
 // Weather
-    $('.weather-forecast li a').click(function() {
+    $('#allison.weather-forecast li a').click(function() {
         var day = $(this).attr('id');
-        $('.weather-forecast li a, .weather-item').removeClass('active');
+        $('#allison.weather-forecast li a, .itemAllison').removeClass('active');
         $(this).addClass('active');
-        $('.weather-item.'+day).addClass('active');
+        $('.itemAllison.'+day).addClass('active');
+        console.log(day);
+    });
+    $('#donna.weather-forecast li a').click(function() {
+        var day = $(this).attr('id');
+        $('#donna.weather-forecast li a, #donna.weather-item').removeClass('active');
+        $(this).addClass('active');
+        $('#donna.weather-item.'+day).addClass('active');
+    });
+    $('#sergio.weather-forecast li a').click(function() {
+        var day = $(this).attr('id');
+        $('#sergio.weather-forecast li a, #sergio.weather-item').removeClass('active');
+        $(this).addClass('active');
+        $('#sergio.weather-item.'+day).addClass('active');
     });
 
 
