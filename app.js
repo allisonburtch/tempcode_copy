@@ -1,23 +1,82 @@
 // Set up server
 var express = require('express');
-var app = express();
-var net = require('net');
 var http = require ('http');  
+var path = require('path');
+var mongo = require('mongodb');
 var mongoose = require ("mongoose");
 
+//set up variables
 var uristring =
-process.env.MONGOLAB_URI ||
-process.env.MONGOHQ_URL ||
-'mongodb://localhost/Temp-Monitor';
+	process.env.MONGOLAB_URI ||
+	process.env.MONGOHQ_URL ||
+	'mongodb://localhost/Temp-Monitor';
 
-var theport = process.env.PORT || 5000;
+var app = express();
 
-mongoose.connect('mongodb://temp-monitor.herokuapp.com');
+//environments
+app.set('views', __dirname +'/views');
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(express.cookieParser('your secret here'));
+app.use(express.session());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
+
+// development only
+if ('development' == app.get('env')) {
+  app.use(express.errorHandler());
+}
+
+var port = process.env.PORT || 5000;
+
+mongoose.connect('mongodb://localhost/test');
 	var db = mongoose.connection;
 	db.on('error', console.error.bind(console, 'connection error:'));
+	
 	db.once('open', function callback () {
-	  // yay!
-	});
+				
+	var tempSchema = require('./models/schema.js');
+		app.get('/save/:id', function(req, res) {
+		res.send("Incomplete request. Missing Temp");
+
+		app.get('/save/:id/:temp', function(req, res) {
+			// set variables for current request
+			var tempData = {
+				// var timestamp = (new Date()).getTime();
+				 currentTime : (new Date()).getHours(),
+				 currentUser : req.params.id.toUpperCase(),
+				 currentTemp : req.params.temp,
+				// call function to API, and store in local value
+				 forecastTemp = null;
+					getWeatherApi(currentUser, function(myTempForecast) {
+						//console.log("my api temp is " + myTempForecast);
+						forecastTemp = myTempForecast;
+						console.log("Forecast Temp is: " + forecastTemp);
+						
+						console.log(currentTime);
+						if (currentTime > 6 && currentTime < 22 && forecastTemp < 55 && currentTemp > 68) {
+							console.log("daytime: your house is sufficiently heated");
+						}
+						else if (currentTime > 6 && currentTime < 22 && forecastTemp < 55 && currentTemp < 68) {
+							console.log("daytime: your house is cold");
+						}
+						else if (currentTime > 22 && currentTime < 6 && forecastTemp < 40 && currentTemp > 55) {
+							console.log("nightime: your house is sufficiently heated");
+						}
+						else if (currentTime > 22 && currentTime < 6 && forecastTemp < 40 && currentTemp < 55) {
+							console.log("nightime: your house is cold");
+						}
+					});
+				res.send({timestamp: currentTime,user: (req.params.id).toUpperCase(),temp: req.params.temp});
+				console.log({timestamp: currentTime,user: (req.params.id).toUpperCase(),temp: req.params.temp});		
+			};
+		};
+		var newTemp = new tempSchema(tempData); // new astronaut document
+		newTemp.save(); //save to database
+		});
+});
 
 // Makes connection asynchronously.  Mongoose will queue up database
 // operations and release them when the connection is complete.
@@ -44,27 +103,15 @@ var options = {
 	long_SM = -73.930970,
 	forecast = new Forecast(options);
 
-
-var port = process.env.PORT || 5000;
 app.listen(port, function() {
 	console.log("Listening on " + port);
 });
 
-// Run Server 
-// app.get('/', function(req, res) {
-// 	res.writeHead(200, {
-// 		'Content-Type': 'text/plain'
-// 	});
-// 	res.end('Temperature Monitor App');
-// });
 
 app.get('/', function(request, response){
-  response.sendfile(__dirname + "/public/js/index.html");
+  response.sendfile(__dirname + "/views/index.html");
 });
 
-// app.get('/save', function(req, res) {
-// 	res.send("Incomplete request. Missing the User & Temp");
-// });
 
 app.get('/save/:id', function(req, res) {
 	res.send("Incomplete request. Missing Temp");
@@ -122,6 +169,8 @@ app.get('/	:id', function(req, res) {
 });
 
 
+
+
 // Weather API
 
 function getWeatherApi(userID, callback) {
@@ -150,6 +199,6 @@ function getWeatherApi(userID, callback) {
 		});
 		break;
 	default:
-		console.log("User unkown");
+		console.log("User unknown");
 	}
 }
