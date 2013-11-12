@@ -59,7 +59,7 @@ app.listen(port, function() {
 // });
 
 app.get('/', function(request, response){
-  response.sendfile(__dirname + "/index.html");
+  response.sendfile(__dirname + "/public/js/index.html");
 });
 
 // app.get('/save', function(req, res) {
